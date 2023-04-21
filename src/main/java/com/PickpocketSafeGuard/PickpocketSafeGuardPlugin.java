@@ -1,4 +1,4 @@
-package com.example;
+package com.PickpocketSafeGuard;
 
 import com.google.inject.Provides;
 import javax.inject.Inject;
@@ -14,26 +14,26 @@ import net.runelite.client.plugins.PluginDescriptor;
 
 @Slf4j
 @PluginDescriptor(
-	name = "Example"
+	name = "Pickpocket Safe Guard"
 )
-public class ExamplePlugin extends Plugin
+public class PickpocketSafeGuardPlugin extends Plugin
 {
 	@Inject
 	private Client client;
 
 	@Inject
-	private ExampleConfig config;
+	private PickpocketSafeGuardConfig config;
 
 	@Override
 	protected void startUp() throws Exception
 	{
-		log.info("Example started!");
+		log.info("Pickpocket Safe Guard started!");
 	}
 
 	@Override
 	protected void shutDown() throws Exception
 	{
-		log.info("Example stopped!");
+		log.info("Pickpocket Safe Guard stopped!");
 	}
 
 	@Subscribe
@@ -41,13 +41,14 @@ public class ExamplePlugin extends Plugin
 	{
 		if (gameStateChanged.getGameState() == GameState.LOGGED_IN)
 		{
-			client.addChatMessage(ChatMessageType.GAMEMESSAGE, "", "Example says " + config.greeting(), null);
+
+			client.addChatMessage(ChatMessageType.GAMEMESSAGE, "", "Example says " + config.hpThreshold(), null);
 		}
 	}
 
 	@Provides
-	ExampleConfig provideConfig(ConfigManager configManager)
+	PickpocketSafeGuardConfig provideConfig(ConfigManager configManager)
 	{
-		return configManager.getConfig(ExampleConfig.class);
+		return configManager.getConfig(PickpocketSafeGuardConfig.class);
 	}
 }
